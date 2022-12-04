@@ -1,11 +1,8 @@
-# Klisé
-
-Klisé is minimalist Jekyll theme for running a personal site and blog running on Jekyll.<br>
-For demo <a href="https://klise.now.sh" target="_blank" rel="noopener">klise.now.sh</a>
-
 ## Installation
 
-Run local server:
+First, install [prerequisites](https://jekyllrb.com/docs/installation/).
+
+Then, you should be able to run it on a local server:
 
 ```bash
 $ git clone https://github.com/piharpi/jekyll-klise.git
