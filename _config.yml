@@ -2,7 +2,7 @@
 title: roby2014.me # site title
 description: >- # site description
   roby's experiments in cool topics like reverse engineering, 
-  compilers, emulators, systems programming, FPGAs and CTFs (or maybe others :P)
+  compilers, emulators, systems programming, FPGAs and CTFs (and maybe others 😝)
 lang: en-US # default lang
 timezone: Portugal/Lisbon # set your timezone
 image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
@@ -14,7 +14,7 @@ author:
   name: roby # author name
   bio: >- # tell to the world
     My cool experiments in cool topics such as reverse engineering, 
-    compilers, emulators, systems programming, FPGAs and CTFs (or maybe others :P)
+    compilers, emulators, systems programming, FPGAs and CTFs (and maybe others 😝)
   username: roby2014 # general username
   github: roby2014 # github username
   twitter: twitter_username # twitter username
