@@ -1,18 +1,21 @@
 ---
-title: Colophon
+title: About
 permalink: /about/
 layout: page
-excerpt: Hello peeps, I'm student of computer science from Banyuwangi, living in Jogjakarta. This blog for documentation about my programming journey, running on jekyll, hosting on netlify and using my own simple theme.
+excerpt: About me
 comments: false
 ---
 
-He's a student from Banyuwangi, living in Jogjakarta. the blog for documentation about his programming 🎒 journey, running on jekyll, hosting on [now.sh](http://now.sh) and using his own theme, he name it <a href="https://github.com/piharpi/jekyll-klise" target="_blank" rel="noopener">klisé</a>, he also loves to learning web technology; but he often forgot, that a reason why him doing the writing.
+Hi! I'm Roberto, a 19 years old student doing a BSc in Computer Science and Engineering at [Instituto Superior de Engenharia de Lisboa (ISEL)](https://www.isel.pt/). 
 
-If you have a question about him or else, just send a letter to him.
+The blog is mainly used to document my projects/experiments on the different topics I find interesting.
+At the moment, my main interests are: **reverse engineering**, **compilers**, **emulators**, **systems programming** and **FPGAs**.
 
-You can [report](http://github.com/piharpi/jekyll-klise/issues/new) if there is an broken link(s) or somethings else.
+Check [my github](https://github.com/roby2014) for some of my public projects.
 
-**may u needs ✨**
+You can [report](https://github.com/roby2014/roby2014.me/issues/new) if there is any broken link(s) on this blog.
+
+**contact me**
 
 - {{ site.author.email }}
 - github.com/{{ site.author.github }}
