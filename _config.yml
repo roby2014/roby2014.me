@@ -23,7 +23,7 @@ author:
   avatar: /assets/img/avatar2.jpg # change with your own avatar
 
 # URL settings
-url: "https://klise.now.sh" #
+url: "https://roby2014-me.vercel.app/" #
 baseurl:
 permalink: /:title/
 google_analytics: # leave it blank if not wish
