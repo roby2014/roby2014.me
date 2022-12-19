@@ -60,15 +60,15 @@ In order to use and communicate with the board JTAG pins, you need to solder som
 
 | Connector | Function | FTDI232RL | Color   |
 |-----------|----------|-----------|-------- |
-| J27       | TCK      | TX        | Green🟩  |
-| J31       | TMS      | CTS       | Blue🟦   |
-| J32       | TDI      | RX        | Orange🟧 |
-| J30       | TDO      | RTS       | Yellow🟨 |
+| J27       | TCK      | TX        | Green 🟩  |
+| J31       | TMS      | CTS       | Blue 🟦   |
+| J32       | TDI      | RX        | Orange 🟧 |
+| J30       | TDO      | RTS       | Yellow 🟨 |
 |           |          |           |
-| J33       | 3.3V     | VCC       | Brown🟫  |
-| J34       | GND      | GND       | Black⬛   |
+| J33       | 3.3V     | VCC       | Brown 🟫  |
+| J34       | GND      | GND       | Black ⬛   |
 |           |          |           |
-| 5V        | POWER    | 5V        | Red🟥    |
+| 5V        | POWER    | 5V        | Red 🟥    |
 
 
 *The FPGA needs 3.3V in order to work, but the board itself needs 5V.*
