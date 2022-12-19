@@ -16,7 +16,7 @@ tag:
   - nextpnr
   - verilog
   - english
-image: /programming-colorlight-0/board.jpg
+image: programming-colorlight-0/board.png
 ---
 
 ### Introduction
@@ -126,9 +126,11 @@ Done
 Disable configuration: DONE
 ```
 
-And.... it's blinking! ([video link here](https://streamable.com/kf1x4b))
+And.... it's blinking!
 
-https://user-images.githubusercontent.com/47612455/208455082-ec487e53-24d7-4bd5-8930-d9cd81a07f1a.mp4
+Video links:
+- https://streamable.com/kf1x4b
+- https://user-images.githubusercontent.com/47612455/208455082-ec487e53-24d7-4bd5-8930-d9cd81a07f1a.mp4
 
 ### Notes about FTDI232RL
 
