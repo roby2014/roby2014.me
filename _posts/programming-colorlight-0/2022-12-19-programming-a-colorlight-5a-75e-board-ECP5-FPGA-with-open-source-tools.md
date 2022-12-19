@@ -51,14 +51,16 @@ These are the needed components/tools:
 
 ### Using FTDI232RL as a JTAG programmer
 
-`FTDI232RL` is [supported](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration) by `openFPGALoader`, which means we can use it as a JTAG programmer, to upload our bitstream to the FPGA.
+`FTDI232RL` is [supported](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration) ([not out of the box](#notes-about-ftdi232rl)) by `openFPGALoader`, which means we can use it as a JTAG programmer, to upload our bitstream to the FPGA.
 
 ![ftdi232rl](./ftdi232rl.jpg)
 
-In order to use and communicate with the board JTAG pins, my teacher soldered some header pins (J27, J31, J32, 30, J33 and J34 from board and RTS from `FTDI232RL`).
+In order to use and communicate with the board JTAG pins, my teacher soldered some header pins (J27, J31, J32, J30, J33 and J34 from board and RTS from `FTDI232RL`).
 
 ![solded1](./solded1.jpg)
+
 ![solded2](./solded2.jpg)
+
 ![solded3](./solded3.jpg)
 
 #### Pin mapping
@@ -82,7 +84,9 @@ In order to use and communicate with the board JTAG pins, my teacher soldered so
 
 This was the result: 
 ![result3](./result3.jpg)
+
 ![result](./result.jpg)
+
 ![result2](./result2.jpg)
 
 ### Setting up open source toolchain
@@ -122,11 +126,17 @@ Done
 Disable configuration: DONE
 ```
 
-*WARNING: The `FTDI232RL` programmer is a bit different from the others, make sure to read the [openFPGALoader documentation about it](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration). You might need to change the [pin mapping in the Makefile](https://github.com/roby2014/ecp5-blink/blob/main/Makefile#L20) if you connected the wires differently.*
-
 And.... it's blinking! ([video link here](https://streamable.com/kf1x4b))
+
+### Notes about FTDI232RL
+
+WARNING: The `FTDI232RL` programmer is a bit different from the others, make sure to read the [openFPGALoader documentation about it](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration). You might need to change the [pin mapping in the Makefile](https://github.com/roby2014/ecp5-blink/blob/main/Makefile#L20) if you connected the wires differently.
 
 ### References
 - [q3k/chubby75](https://github.com/q3k/chubby75) - Reverse engineering information about the Colorlight 5A-75E board.
+- [yosys](https://github.com/YosysHQ/yosys) – Yosys Open SYnthesis Suite
+- [nextpnr-ecp5](https://github.com/YosysHQ/nextpnr) - A portable FPGA place and route tool (for ECP5 FPGA)
+- [prjtrellis](https://github.com/YosysHQ/prjtrellis) - Provides the device database and tools for bitstream creation
+- [openFPGALoader](https://github.com/trabucayre/openFPGALoader) - Universal utility for programming FPGA 
 - [The Colorlight i5 as FPGA development board](https://tomverbeure.github.io/2021/01/22/The-Colorlight-i5-as-FPGA-development-board.html) - Blogpost using a similar board/toolchain.
 - [Colorlight FPGA Projects](https://github.com/wuxx/Colorlight-FPGA-Projects) - Some Verilog projects that target Colorlight boards.
