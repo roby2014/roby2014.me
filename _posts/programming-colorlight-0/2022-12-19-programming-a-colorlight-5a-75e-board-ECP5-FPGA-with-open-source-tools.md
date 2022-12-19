@@ -56,18 +56,33 @@ These are the needed components/tools:
 
 In order to use and communicate with the board JTAG pins, you need to solder some header pins first.
 
-#### TODO Pin mapping
+#### Pin mapping
+
+| Connector | Function | FTDI232RL | Color   |
+|-----------|----------|-----------|-------- |
+| J27       | TCK      | TX        | Green🟩  |
+| J31       | TMS      | CTS       | Blue🟦   |
+| J32       | TDI      | RX        | Orange🟧 |
+| J30       | TDO      | RTS       | Yellow🟨 |
+|           |          |           |
+| J33       | 3.3V     | VCC       | Brown🟫  |
+| J34       | GND      | GND       | Black⬛   |
+|           |          |           |
+| 5V        | POWER    | 5V        | Red🟥    |
+
+
+*The FPGA needs 3.3V in order to work, but the board itself needs 5V.*
+
+#### TODO pin mapping image
 
 This was the result: 
 ![ftdi](./result.jpg)
 ![ftdi](./result2.jpg)
 
-*The FPGA needs 3.3V in order to work, but the board itself needs 5V.*
 
 ### Setting up open source toolchain
 
-So now that we have our hardware setup done, let's go to the software part. We need the tools described above (in the [plan](#plan) section), so:
-- yosys - 
+So now that we have our hardware setup done, let's go to the software part. We need the tools described above (in the [plan](#plan) section).
 
 In my case I'm using Arch Linux, so luckily I could find some useful packages:
 ```sh
@@ -102,10 +117,9 @@ Done
 Disable configuration: DONE
 ```
 
-And.... it's blinking!
-
-Video here: https://streamable.com/kf1x4b
+And.... it's blinking! ([video here](https://streamable.com/kf1x4b))
 
 ### References
 - [q3k/chubby75](https://github.com/q3k/chubby75) - Reverse engineering information about the Colorlight 5A-75E board.
 - [The Colorlight i5 as FPGA development board](https://tomverbeure.github.io/2021/01/22/The-Colorlight-i5-as-FPGA-development-board.html) - Blogpost using a similar board/toolchain.
+- [Colorlight FPGA Projects](https://github.com/wuxx/Colorlight-FPGA-Projects) - Some Verilog projects that target Colorlight boards.
