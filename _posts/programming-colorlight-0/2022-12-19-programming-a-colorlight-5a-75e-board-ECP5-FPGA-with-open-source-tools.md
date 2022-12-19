@@ -45,7 +45,7 @@ These are the needed components/tools:
 - `FTDI232RL` (as JTAG programmer)
 - [yosys](https://github.com/YosysHQ/yosys) – Yosys Open SYnthesis Suite
 - [nextpnr-ecp5](https://github.com/YosysHQ/nextpnr) - A portable FPGA place and route tool (for ECP5 FPGA)
-- [prjtrellis](https://github.com/YosysHQ/prjtrellis) - Provides the device database and tools for bitstream creation.
+- [prjtrellis](https://github.com/YosysHQ/prjtrellis) - Provides the device database and tools for bitstream creation
 - [openFPGALoader](https://github.com/trabucayre/openFPGALoader) - Universal utility for programming FPGA 
 
 ### Using FTDI232RL as a JTAG programmer
@@ -56,9 +56,13 @@ These are the needed components/tools:
 
 In order to use and communicate with the board JTAG pins, you need to solder some header pins first.
 
+#### TODO Pin mapping
+
+This was the result: 
+![ftdi](./result.jpg)
+![ftdi](./result2.jpg)
 
 *The FPGA needs 3.3V in order to work, but the board itself needs 5V.*
-
 
 ### Setting up open source toolchain
 
@@ -72,6 +76,35 @@ In my case I'm using Arch Linux, so luckily I could find some useful packages:
 ```
 These two commands installed all the tools I needed, in your case, you might need to install them differently.
 
+### Uploading Verilog design to ECP5 FPGA
+
+So we have everything we need in order to start programming the FPGA as we want.
+
+I'm not very experienced with Verilog, so while I don't know how to generate VHDL bitstream and upload it, we can use [this](https://github.com/wuxx/Colorlight-FPGA-Projects/tree/master/src/i5/blink) public project as a base template, but we need to change some stuff. The "updated" version is [here](https://github.com/roby2014/ecp5-blink).
+
+The project has a `Makefile` that runs all the needed commands for you.
+
+```
+❯ git clone https://github.com/roby2014/ecp5-blink
+❯ cd ecp5-blink
+❯ make && make prog
+make: Nothing to be done for 'all'.
+openFPGALoader --cable ft232RL --pins=RXD:RTS:TXD:CTS blink.bit
+Jtag probe limited to 3MHz
+Jtag frequency : requested 6000000Hz -> real 3000000Hz
+ret 0
+Open file: DONE
+Parse file: DONE
+Enable configuration: DONE
+SRAM erase: DONE
+Loading: [==================================================] 100.00%
+Done
+Disable configuration: DONE
+```
+
+And.... it's blinking!
+
+Video here: https://streamable.com/kf1x4b
 
 ### References
 - [q3k/chubby75](https://github.com/q3k/chubby75) - Reverse engineering information about the Colorlight 5A-75E board.
