@@ -128,9 +128,11 @@ Disable configuration: DONE
 
 And.... it's blinking! ([video link here](https://streamable.com/kf1x4b))
 
+https://user-images.githubusercontent.com/47612455/208455082-ec487e53-24d7-4bd5-8930-d9cd81a07f1a.mp4
+
 ### Notes about FTDI232RL
 
-WARNING: The `FTDI232RL` programmer is a bit different from the others, make sure to read the [openFPGALoader documentation about it](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration). You might need to change the [pin mapping in the Makefile](https://github.com/roby2014/ecp5-blink/blob/main/Makefile#L20) if you connected the wires differently.
+WARNING: Using `FTDI232RL` as a JTAG programmer is a bit different from the others, make sure to read the [openFPGALoader documentation about it](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration). You might need to change the [pin mapping in the Makefile](https://github.com/roby2014/ecp5-blink/blob/main/Makefile#L20) if you connected the wires differently.
 
 ### References
 - [q3k/chubby75](https://github.com/q3k/chubby75) - Reverse engineering information about the Colorlight 5A-75E board.
