@@ -86,9 +86,8 @@ In order to use and communicate with the board JTAG pins, my teacher soldered so
 | 5V        | POWER    | 5V        | Red 🟥    |
 
 
+*JUMPER should be on 3.3V, so VCC is 3.3V.*
 *The FPGA needs 3.3V in order to work, but the board itself needs 5V.*
-
-#### TODO pin mapping image
 
 ![pinmap](./pinmapping.png)
 
