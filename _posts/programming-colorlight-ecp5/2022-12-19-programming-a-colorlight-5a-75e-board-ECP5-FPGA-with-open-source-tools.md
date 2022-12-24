@@ -90,6 +90,8 @@ In order to use and communicate with the board JTAG pins, my teacher soldered so
 
 #### TODO pin mapping image
 
+![pinmap](./pinmapping.png)
+
 This was the result: 
 ![result3](./result3.jpg)
 
