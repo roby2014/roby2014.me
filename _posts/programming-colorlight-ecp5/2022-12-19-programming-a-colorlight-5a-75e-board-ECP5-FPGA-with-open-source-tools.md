@@ -19,13 +19,14 @@ tag:
 image: /programming-colorlight-ecp5/board.png
 ---
 
-1. [Introduction](#introduction)
-2. [Plan](#plan)
-3. [Using FTDI232RL as a JTAG programmer](#using-ftdi232rl-as-a-jtag-programmer)
-4. [Setting up open source toolchain](#setting-up-open-source-toolchain)
-5. [Uploading Verilog design to ECP5 FPGA](#uploading-verilog-design-to-ecp5-fpga)
-6. [Notes about FTDI232RL](#notes-about-ftdi232rl)
-7. [References](#references)
+- [Introduction](#introduction)
+- [Plan](#plan)
+- [Using FTDI232RL as a JTAG programmer](#using-ftdi232rl-as-a-jtag-programmer)
+  - [Pin mapping](#pin-mapping)
+- [Setting up open source toolchain](#setting-up-open-source-toolchain)
+- [Uploading Verilog design to ECP5 FPGA](#uploading-verilog-design-to-ecp5-fpga)
+- [Notes about FTDI232RL](#notes-about-ftdi232rl)
+- [References](#references)
 
 ### Introduction
 
@@ -111,16 +112,16 @@ These two commands installed all the tools I needed, in your case, you might nee
 
 So we have everything we need in order to start programming the FPGA as we want.
 
-I'm not very experienced with Verilog, so while I don't know how to generate VHDL bitstream and upload it, [this public project](https://github.com/wuxx/Colorlight-FPGA-Projects/tree/master/src/i5/blink) can be used as a base template, but we need to change some stuff (because of our programmer). The updated version is [in my repository](https://github.com/roby2014/ecp5-blink).
+You can find an example project [on my repository](https://github.com/roby2014/ecp5-ft232rl-example) (VHDL + Verilog examples).
 
-The project has a `Makefile` that runs all the needed commands.
+The project has a `Makefile` that runs all the needed commands, and programs your board.
 
 ```
-❯ git clone https://github.com/roby2014/ecp5-blink
-❯ cd ecp5-blink
+❯ git clone https://github.com/roby2014/ecp5-ft232rl-example
+❯ cd ecp5-ft232rl-example/verilog_example
 ❯ make && make prog
 make: Nothing to be done for 'all'.
-openFPGALoader --cable ft232RL --pins=RXD:RTS:TXD:CTS blink.bit
+openFPGALoader --cable ft232RL --pins=RXD:RTS:TXD:CTS led_control.bit
 Jtag probe limited to 3MHz
 Jtag frequency : requested 6000000Hz -> real 3000000Hz
 ret 0
@@ -133,12 +134,7 @@ Done
 Disable configuration: DONE
 ```
 
-And.... it's blinking!
-
-Video links:
-- https://streamable.com/kf1x4b
-- https://user-images.githubusercontent.com/47612455/208455082-ec487e53-24d7-4bd5-8930-d9cd81a07f1a.mp4
-
+And.... it works :)
 ### Notes about FTDI232RL
 
 WARNING: Using `FTDI232RL` as a JTAG programmer is a bit different from the others, make sure to read the [openFPGALoader documentation about it](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration). You might need to change the [pin mapping in the Makefile](https://github.com/roby2014/ecp5-blink/blob/main/Makefile#L20) if you connected the wires differently.
