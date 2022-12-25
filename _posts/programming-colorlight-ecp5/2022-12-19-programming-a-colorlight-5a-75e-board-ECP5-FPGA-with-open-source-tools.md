@@ -141,9 +141,9 @@ WARNING: Using `FTDI232RL` as a JTAG programmer is a bit different from the othe
 
 ### References
 - [q3k/chubby75](https://github.com/q3k/chubby75) - Reverse engineering information about the Colorlight 5A-75E board.
-- [yosys](https://github.com/YosysHQ/yosys) – Yosys Open SYnthesis Suite
-- [nextpnr-ecp5](https://github.com/YosysHQ/nextpnr) - A portable FPGA place and route tool (for ECP5 FPGA)
-- [prjtrellis](https://github.com/YosysHQ/prjtrellis) - Provides the device database and tools for bitstream creation
-- [openFPGALoader](https://github.com/trabucayre/openFPGALoader) - Universal utility for programming FPGA 
+- [yosys](https://github.com/YosysHQ/yosys) – Yosys Open SYnthesis Suite.
+- [nextpnr-ecp5](https://github.com/YosysHQ/nextpnr) - A portable FPGA place and route tool (for ECP5 FPGA).
+- [prjtrellis](https://github.com/YosysHQ/prjtrellis) - Provides the device database and tools for bitstream creation.
+- [openFPGALoader](https://github.com/trabucayre/openFPGALoader) - Universal utility for programming FPGA.
 - [The Colorlight i5 as FPGA development board](https://tomverbeure.github.io/2021/01/22/The-Colorlight-i5-as-FPGA-development-board.html) - Blogpost using a similar board/toolchain.
 - [Colorlight FPGA Projects](https://github.com/wuxx/Colorlight-FPGA-Projects) - Some Verilog projects that target Colorlight boards.
