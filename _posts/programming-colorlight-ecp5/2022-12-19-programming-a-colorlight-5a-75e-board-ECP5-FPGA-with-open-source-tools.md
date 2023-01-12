@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Programming a Colorlight 5A-75E board (ECP5 FPGA) with open source tools.
+title: Programming a Colorlight 5A-75E board (ECP5 FPGA) with open source tools using FT232RL.
 date: 2022-12-19 01:00 +0700
-modified: 2022-12-19 01:00 +0700
-description: Programming a Colorlight 5A-75E board with open source tools using FT232RL as a JTAG programmer.
+modified: 2022-01-12 01:00 +0700
+description: Programming a Colorlight 5A-75E board (ECP5 FPGA) with open source tools using FT232RL as a JTAG programmer.
 tag:
   - fpga
   - ecp5
