@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Programming a Colorlight 5A-75E board (ECP5 FPGA) with open source tools using FT232RL.
+title: Programming a Colorlight 5A-75E board (ECP5 FPGA) with FT232RL using open source tools.
 date: 2022-12-19 01:00 +0700
 modified: 2022-01-12 01:00 +0700
 description: Programming a Colorlight 5A-75E board (ECP5 FPGA) with open source tools using FT232RL as a JTAG programmer.
@@ -8,7 +8,7 @@ tag:
   - fpga
   - ecp5
   - colorlight
-  - FT232RL
+  - ft232rl
   - ftdi
   - jtag
   - open source
@@ -23,9 +23,9 @@ image: /programming-colorlight-ecp5/board.png
 - [Plan](#plan)
 - [Using FTDI232RL as a JTAG programmer](#using-ftdi232rl-as-a-jtag-programmer)
   - [Pin mapping](#pin-mapping)
+  - [Notes about FTDI232RL](#notes-about-ftdi232rl)
 - [Setting up open source toolchain](#setting-up-open-source-toolchain)
-- [Uploading Verilog design to ECP5 FPGA](#uploading-verilog-design-to-ecp5-fpga)
-- [Notes about FTDI232RL](#notes-about-ftdi232rl)
+- [Uploading bitstream to ECP5 FPGA](#uploading-bitstream-to-ecp5-fpga)
 - [References](#references)
 
 ### Introduction
@@ -90,6 +90,12 @@ In order to use and communicate with the board JTAG pins, my teacher soldered so
 *JUMPER should be on 3.3V, so VCC is 3.3V.*
 *The FPGA needs 3.3V in order to work, but the board itself needs 5V.*
 
+#### Notes about FTDI232RL
+
+Using `FTDI232RL` as a JTAG programmer is a bit different from the others, make sure to read the [openFPGALoader documentation about it](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration) (it requires two special arguments (`--pins` and `--cable`)). 
+
+I recommend using my pin map/wires connection, if you did not, you might need to change the `--pins` argument when invoking `openFPGALoader` to send the bitstream.
+
 ![pinmap](./pinmapping.png)
 
 This was the result: 
@@ -99,7 +105,9 @@ This was the result:
 
 ### Setting up open source toolchain
 
-So now that the hardware setup is done, let's go to the software part. The tools described above are needed (in the [plan](#plan) section).
+So now that the hardware setup is done, let's go to the software part. The tools described above are needed (in the [plan](#plan) section). 
+
+The cool thing about this board is that we can program it using a fully open source toolchain.! 
 
 In my case I'm using Arch Linux, so luckily I could find some useful packages:
 ```sh
@@ -108,19 +116,18 @@ In my case I'm using Arch Linux, so luckily I could find some useful packages:
 ```
 These two commands installed all the tools I needed, in your case, you might need to install them differently.
 
-### Uploading Verilog design to ECP5 FPGA
+### Uploading bitstream to ECP5 FPGA
 
 So we have everything we need in order to start programming the FPGA as we want.
 
-You can find an example project [on my repository](https://github.com/roby2014/ecp5-ft232rl-example) (VHDL + Verilog examples).
+You can find a simple example project [on my repository](https://github.com/roby2014/ecp5-ft232rl-example) (VHDL + Verilog + SpinalHDL examples).
 
 The project has a `Makefile` that runs all the needed commands, and programs your board.
 
 ```
 ❯ git clone https://github.com/roby2014/ecp5-ft232rl-example
 ❯ cd ecp5-ft232rl-example/verilog_example
-❯ make && make prog
-make: Nothing to be done for 'all'.
+❯ make
 openFPGALoader --cable ft232RL --pins=RXD:RTS:TXD:CTS led_control.bit
 Jtag probe limited to 3MHz
 Jtag frequency : requested 6000000Hz -> real 3000000Hz
@@ -134,10 +141,10 @@ Done
 Disable configuration: DONE
 ```
 
-And.... it works :)
-### Notes about FTDI232RL
+And.... it works :) You should be able to control your LED via INPUT button.
 
-WARNING: Using `FTDI232RL` as a JTAG programmer is a bit different from the others, make sure to read the [openFPGALoader documentation about it](https://trabucayre.github.io/openFPGALoader/guide/advanced.html#ft231-ft232-bitbang-mode-and-pins-configuration). You might need to change the [pin mapping in the Makefile](https://github.com/roby2014/ecp5-blink/blob/main/Makefile#L20) if you connected the wires differently.
+*In case you are curious, [this](https://github.com/roby2014/ecp5-ft232rl-example#information) is what the `Makefile` does "under the hood".*
+
 
 ### References
 - [q3k/chubby75](https://github.com/q3k/chubby75) - Reverse engineering information about the Colorlight 5A-75E board.
