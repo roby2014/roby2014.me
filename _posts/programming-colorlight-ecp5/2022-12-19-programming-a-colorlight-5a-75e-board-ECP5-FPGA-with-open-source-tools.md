@@ -11,7 +11,7 @@ tag:
   - ft232rl
   - ftdi
   - jtag
-  - open source
+  - oss
   - yosys
   - nextpnr
   - verilog
