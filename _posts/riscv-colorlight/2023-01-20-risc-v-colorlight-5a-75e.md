@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Implementing a RISC-V CPU into a 15$ FPGA Board.
+title: Implementing a RISC-V soft core into a 15$ FPGA board.
 date: 2023-01-20 01:00 +0700
 modified: 2023-01-20 01:00 +0700
 description: Demonstration on using a soft core (VexRiscv) built with LiTex in a Colorlight 5A-75E board (Lattice ECP5).
@@ -11,36 +11,34 @@ tag:
   - riscv
   - vexriscv
   - litex
+  - oss
   - ft232rl
+  - ftdi
+  - uart
 image: /programming-colorlight-ecp5/board.png
 ---
 
 - [Introduction](#introduction)
-- [Setup](#setup)
 - [Info](#info)
-  - [Schematic](#schematic)
+- [Schematic](#schematic)
 - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
   - [hardware](#hardware)
   - [software](#software)
-  - [clone the repository](#clone-the-repository)
   - [Build gateware/bitstream](#build-gatewarebitstream)
   - [Build firmware (C code)](#build-firmware-c-code)
 - [Load bitstream into FPGA](#load-bitstream-into-fpga)
 - [Load firmware](#load-firmware)
 - [Boot](#boot)
-  - [References](#references)
+- [References](#references)
 
-## Introduction
+### Introduction
 
 So in the previous post I showed you how you can program a **Colorlight 5A-75E** board with **open source tools** and using **FT232RL** chip as **JTAG** programmer. 
 
 In this post, we'll continue this adventure, by implementing a RISC-V soft core ([**VexRiscv**](https://github.com/SpinalHDL/VexRiscv)) built with [**LiTex**]((https://github.com/enjoy-digital/litex)).
 
-## Setup
-
-I have prepared a quick setup on [my repository (roby2014/risc-v-colorlight-5a-75e)](https://github.com/roby2014/risc-v-colorlight-5a-75e). The repository contains all the steps/commands that you need. 
-
-## Info
+### Info
 
 - There is no led and no user button - both pins are used by the UART.
 
@@ -54,44 +52,46 @@ I have prepared a quick setup on [my repository (roby2014/risc-v-colorlight-5a-7
 
 <img src="./schematic.png" width="800"/>
 
-## Prerequisites
+### Prerequisites
 
-### hardware
+#### Setup
+
+I have prepared a quick setup on [my repository (roby2014/risc-v-colorlight-5a-75e)](https://github.com/roby2014/risc-v-colorlight-5a-75e). The repository contains all the steps/commands that you need. 
+```bash
+git clone https://github.com/roby2014/risc-v-colorlight-5a-75e
+cd risc-v-colorlight-5a-75e
+```
+
+#### hardware
 - Colorlight 5A-75E (duh) (with JTAG header pins)
 - JTAG programmer (I used FT232RL (*not recommended, very slow!!!*))
 - USB <-> UART converter (i also used another FT232RL)
 
-### software
+#### software
 
 - LiteX and Migen tools (see [litex wiki](https://github.com/enjoy-digital/litex/wiki/Installation) for installation instructions)
 - RISC-V toolchain (check litex wiki aswell)
 - yosys, nextpnr and prjtrellis (ECP5 toolchain)
 - openFPGALoader
 
-### clone the repository
-```bash
-git clone https://github.com/roby2014/risc-v-colorlight-5a-75e
-cd risc-v-colorlight-5a-75e
-```
-
-### Build gateware/bitstream
+#### Build gateware/bitstream
 ```bash
 ./base.py --build
 ```
 
-### Build firmware (C code)
+#### Build firmware (C code)
 ```bash
 cd firmware && make
 ```
 
-## Load bitstream into FPGA
+### Load bitstream into FPGA
 ```bash
 ./base.py --load [--cable yourCable]
 ```
 where *yourCable* depends on your JTAG probe. 
 If `--cable` is not provided, `ft232RL` will be used by default.
 
-## Load firmware
+### Load firmware
 ```bash
 make run DEVICE=... LXTERM_DIR=...
 ```
@@ -104,7 +104,7 @@ Example:
 make run DEVICE=/dev/ttyUSB1 LXTERM_DIR=/home/user/litex/litex/tools/litex_term.py
 ```
 
-## Boot
+### Boot
 After loading the firmware, you can type `reboot` and you should be able to see something like this:
 ```bash
 ❯ make run DEVICE=/dev/ttyUSB2 LXTERM_DIR=/home/roby/litex/litex/tools/litex_term.py
