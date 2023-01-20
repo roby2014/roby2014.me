@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Implementing a RISC-V CPU into a 15$ FPGA Board.
-date: 2022-12-19 01:00 +0700
-modified: 2022-01-12 01:00 +0700
+date: 2023-01-20 01:00 +0700
+modified: 2023-01-20 01:00 +0700
 description: Demonstration on using a soft core (VexRiscv) built with LiTex in a Colorlight 5A-75E board (Lattice ECP5).
 tag:
   - fpga
@@ -22,6 +22,7 @@ image: /programming-colorlight-ecp5/board.png
 - [Prerequisites](#prerequisites)
   - [hardware](#hardware)
   - [software](#software)
+  - [clone the repository](#clone-the-repository)
   - [Build gateware/bitstream](#build-gatewarebitstream)
   - [Build firmware (C code)](#build-firmware-c-code)
 - [Load bitstream into FPGA](#load-bitstream-into-fpga)
@@ -66,6 +67,12 @@ I have prepared a quick setup on [my repository (roby2014/risc-v-colorlight-5a-7
 - RISC-V toolchain (check litex wiki aswell)
 - yosys, nextpnr and prjtrellis (ECP5 toolchain)
 - openFPGALoader
+
+### clone the repository
+```bash
+git clone https://github.com/roby2014/risc-v-colorlight-5a-75e
+cd risc-v-colorlight-5a-75e
+```
 
 ### Build gateware/bitstream
 ```bash
