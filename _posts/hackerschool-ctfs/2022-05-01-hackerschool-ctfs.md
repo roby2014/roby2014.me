@@ -12,7 +12,7 @@ tag:
 image: /hackerschool-ctfs/repo.png
 ---
 
-So [HackerSchool](http://hackerschool.tecnico.ulisboa.pt/) organized a CTF (Capture The Flag) tournament for portuguese university students. Since I've never participated in one, I've decided to try it out and see if I can learn something.
+So [HackerSchool](http://hackerschool.tecnico.ulisboa.pt/) hosted a CTF (Capture The Flag) tournament for portuguese university students. Since I've never participated in one, I've decided to try it out and see if I can learn something.
 
 S/o my teammates (also their first contact with CTF's in general), we got placed 5th place, with 1760 points.
 

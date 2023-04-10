@@ -14,6 +14,8 @@ tag:
 image: /
 ---
 
+Some writeups of my CTF (dumb) solutions from "ImaginaryCTF". (*spoiler alert*)
+
 ## Table of contents
 - [Table of contents](#table-of-contents)
 - [Introduction](#introduction)
