@@ -2,7 +2,7 @@
 layout: post
 title: ImaginaryCTF writeups
 date: 2023-03-16 01:00 +0700
-modified: 2023-03-16 01:00 +0700
+modified: 2023-04-11 01:00 +0700
 description: ImaginaryCTF writeups.
 tag:
   - ctf
@@ -29,18 +29,22 @@ Some writeups of my CTF (dumb) solutions from "ImaginaryCTF". (*spoiler alert*)
     - [Description](#description-1)
     - [Attachments](#attachments-1)
     - [Solution](#solution-1)
+  - [Snake (75pts)](#snake-75pts)
+    - [Description](#description-2)
+    - [Attachments](#attachments-2)
+    - [Solution](#solution-2)
 - [pwn](#pwn)
 - [crypto](#crypto)
 - [misc](#misc)
   - [Xeger1 (75pts)](#xeger1-75pts)
-    - [Description](#description-2)
-    - [Attachments](#attachments-2)
-    - [Solution](#solution-2)
-- [forensics](#forensics)
-  - [Wireshark! (50pts)](#wireshark-50pts)
     - [Description](#description-3)
     - [Attachments](#attachments-3)
     - [Solution](#solution-3)
+- [forensics](#forensics)
+  - [Wireshark! (50pts)](#wireshark-50pts)
+    - [Description](#description-4)
+    - [Attachments](#attachments-4)
+    - [Solution](#solution-4)
 
 ## Introduction
 Some writeups of my (dumb) solutions for [ImaginaryCTF](https://imaginaryctf.org).
@@ -197,7 +201,91 @@ Boom:
 ictf{don't_worry_we're_just_getting_st@rted}
 ```
 
+### Snake (75pts)
 
+#### Description
+- I always thought a chain of lambdas reminded me of a snake, so here's some python lambdas.
+
+#### Attachments
+- https://imaginaryctf.org/f/pw4h2#snake.py
+
+#### Solution
+
+Ok this was a bit though and I had to do some trickery to do it, but I got it XD.
+
+The given python file has a massive line with chained lambdas, but if we look carefully, they simply check that at least one of the conditions is true at each step.
+
+```py
+check = lambda _:any([_[6]==95,_[5]==33,_[14]==95]) and (lambda _:any([_[19]==95,_[6]==71,_[18]==39]) and # etc...
+```
+
+As you can see, it checks if index `[6]` is `95` (ASCII value).
+So my solution was to:
+- extract all those pairs (`6` to `95`, `5` to `33`, etc...)
+- since there were alot of repeated ones, i only keep the ones with more "appearences" (thanks chagpt for helping me on this part xD)
+- convert the ascii values to characters and generating the flag string
+
+So this is my solution:
+```py
+import re
+
+line = ""
+with open('snake.py', 'r') as file:
+    lines= file.readlines()
+    line = lines[2]
+
+pairs = re.findall(r"_\[(\d+)\]\=\=(\d+)", line)
+
+# pairs is something like: [('6', '95'), ('5', '33'), ('14', '95'), ('19', '95'), .... ]
+
+################################ (thanks chatgpt)
+# will store the pairs with most appearences
+from collections import Counter
+new_pairs = []
+# Create a dictionary to count the frequency of each second element
+d = {}
+for key, value in pairs:
+    if key not in d:
+        d[key] = []
+    d[key].append(value)
+# Find the most common element in each value list 
+# and create a new list of pairs using those values
+for key in d:
+    most_common = Counter(d[key]).most_common(1)[0][0]
+    new_pairs.append((key, most_common))
+########################################
+
+flag_size = len(new_pairs)+1
+flag = [''] * flag_size
+
+for a, b in new_pairs:
+    index = int(a)
+    asci = int(b)
+    flag[index] = chr(asci)
+
+print("".join(flag))
+```
+
+And boom!
+```
+❯ python3 snake_sol.py
+ictf{I_b3t_y0u_ju5t_used_z"}
+```
+
+But wait.... this is not right D:
+
+Well, the pair filtering algorithm from ChatGPT "fails" when there are draws at the pair appearences.
+In this case, index `26` could be ASCII `34`, `51`, `36`, or `50`, as each of them appears twice.
+
+So, getting the ASCII value of each one, we get:
+- `34`: `"` (double quotation mark)
+- `36`: `$` (dollar sign)
+- `50`: `2` (digit 2)
+- `51`: `3` (digit 3)
+
+After some trial error, the correct flag is `ictf{I_b3t_y0u_ju5t_used_z3}`. (*where I suppose "z3" is some algorithm that I should've used and I did not, LOL!*)
+
+*Thanks god only the last index failed x]....*
 
 ## pwn
 
