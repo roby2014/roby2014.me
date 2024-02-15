@@ -97,9 +97,9 @@ It means you skipped a step probably.
 Seriously, if you want to mod source engine games, take a look at [SourceMod](https://www.sourcemod.net/) or [MetaMod](https://www.sourcemm.net/) first, VSPs are hard to setup and you will work with stuff that is easily implemented in SourceMod.
 
 ### References
-- https://github.com/XutaxKamay/ValveServerPlugin
-- https://developer.valvesoftware.com/wiki/Server_plugins
-- https://developer.valvesoftware.com/wiki/Source_SDK_2013
-- https://gitlab.steamos.cloud/steamrt/sniper/sdk/-/blob/steamrt/sniper/README.md
-- https://gitlab.steamos.cloud/steamrt/scout/sdk/-/blob/steamrt/scout/doc/schroot.md
-- https://github.com/ValveSoftware/steam-runtime/tree/master
+- <https://github.com/XutaxKamay/ValveServerPlugin>
+- <https://developer.valvesoftware.com/wiki/Server_plugins>
+- <https://developer.valvesoftware.com/wiki/Source_SDK_2013>
+- <https://gitlab.steamos.cloud/steamrt/sniper/sdk/-/blob/steamrt/sniper/README.md>
+- <https://gitlab.steamos.cloud/steamrt/scout/sdk/-/blob/steamrt/scout/doc/schroot.md>
+- <https://github.com/ValveSoftware/steam-runtime/tree/master>
