@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Creating and running a Valve Server Plugin in.... 2024 ???
+title: Compiling and running a Valve Server Plugin in.... 2024 ???
 date: 2024-02-14 01:00 +0700
 modified: 2023-02-14 01:00 +0700
-description: Demonstration on creating a Valve Server Plugin using steam-runtime shenanigans to compile & link everything.
+description: Demonstration on compiling a Valve Server Plugin using steam-runtime shenanigans to compile & link everything.
 tag:
   - valve
   - vsp
@@ -15,24 +15,29 @@ image: /
 ---
 
 - [Introduction](#introduction)
+- [Problems](#problems)
 - [Setup](#setup)
+- [Compiling](#compiling)
+- [Conclusion](#conclusion)
 - [References](#references)
 
 ### Introduction
 
-So, some days ago, me and and a friend were trying to bring back our old CS:S surf server. So we were finding everything relevant to our last backup we could find, however, there were some obscure C++ sources we needed to compile, and those would compile to a [Valve Server Plugin (VSP)](https://developer.valvesoftware.com/wiki/Server_plugins).
+So, some days ago, me and and a friend were trying to bring back our old CS:S surf server. So we were finding everything relevant to our last backup we could find, however, there were some obscure C++ sources we really needed to compile, and those would compile to a [Valve Server Plugin (VSP)](https://developer.valvesoftware.com/wiki/Server_plugins).
 
-I've been in the source engine community servers modding for some time, and VSPs were always something less talked about, and today I could find why.
-Sourcemod is a great alternative yes, but in this specific case, I really needed to compile these VSP plugins.
+I've been in the source engine modding scene for some time, and VSPs were always something "less talked about", and today I could the reason why.
+[SourceMod](https://www.sourcemod.net/) is a great alternative yes, but in this specific case, I really needed to compile these VSP plugins.
 
-My goal: Compile a VSP that requires steam-runtime linking and such..
-My experience: have to deal with horrible/incomplete valve docs, pain in the ass to setup, trial and error...
+- My goal: Compile a VSP that requires steam-runtime linking and such..
+- My experience: have to deal with horrible/incomplete valve docs, pain in the ass to setup, trial and error...
 
-**So, in this blog post, I'll try to show you a quick sample of how you can compile your own VSP.**
+**So, in this blog post, I'll try to show you a quick sample of how you can compile your own VSP for a CS:S server.**
 
 ### Problems
 
-I've used this guide: https://developer.valvesoftware.com/wiki/Source_SDK_2013 and https://github.com/XutaxKamay/ValveServerPlugin for my first attempts. Ended up in a situation where I could not compile my plugin code (that requires C++17) because steam-runtime's g++ is like 10 years old, and the runtime is very old as well. Also found out that you have to run the runtime??? They implemented containerization off all of [this](https://gitlab.steamos.cloud/steamrt/sniper/sdk/-/blob/steamrt/sniper/README.md)? Idk, I'll show the easy & straight forward way so you won't need to deal and worry with too many things.
+I've used this guide: <https://developer.valvesoftware.com/wiki/Source_SDK_2013> and <https://github.com/XutaxKamay/ValveServerPlugin> for my first attempts. Ended up in a situation where I could not compile my plugin code (that requires C++17) because steam-runtime's g++ is like 10 years old, and the runtime is very old as well. Also found out that you have to run the runtime??? They implemented containerization off all of [this](https://gitlab.steamos.cloud/steamrt/sniper/sdk/-/blob/steamrt/sniper/README.md)? "sniper", "scout" or "soldier" different SDK builds? 
+
+Idk, I'll show the easy & straight forward way so you won't need to deal and worry with too many things.
 
 ### Setup
 
@@ -40,19 +45,19 @@ Prerequisites:
 - g++-multilib
 - gcc-multilib
 - schroot
-- A VSP sample source code: https://github.com/roby2014/ValveServerPlugin
+- A VSP sample source code: <https://github.com/roby2014/ValveServerPlugin>
 
 ### Compiling
 
 So 
 - Clone [steam-runtime](https://github.com/ValveSoftware/steam-runtime/tree/master) repo, we'll need a script from there.
-- Install a recent snapshot of steam-runtime sysroot sniper SDK, you can find them here: https://repo.steampowered.com/steamrt-images-sniper/snapshots/
+- Install a recent snapshot of steam-runtime sysroot sniper SDK, you can find them [here](https://repo.steampowered.com/steamrt-images-sniper/snapshots/).
 ```bash
 git clone https://github.com/ValveSoftware/steam-runtime
 wget https://repo.steampowered.com/steamrt-images-sniper/snapshots/0.20220119.0/com.valvesoftware.SteamRuntime.Sdk-amd64%2Ci386-sniper-sysroot.tar.gz
 ```
 
-Now, you can just run:
+Now, you can just run this to create a chroot environment:
 ```bash
 steam-runtime/setup_chroot.sh --amd64 --tarball com.valvesoftware.SteamRuntime.Sdk-amd64,i386-sniper-sysroot.tar.gz
 ```
@@ -64,7 +69,8 @@ cd ValveServerPlugin
 schroot --chroot steamrt_scout_amd64 -- g++ -std=c++17 -m32 -Ofast -static-libstdc++ -static-libgcc -shared -o sample_plugin.so main.cpp
 ```
 
-After this, you should have a new object file named `sample_plugin.so`. This is your plugin. Now just move it alongside with its `.vdf` to `cstrike/addons`.
+After this step, you should have a new object file named `sample_plugin.so`. This is your plugin. Now just move it alongside with it's `.vdf` to `cstrike/addons`.
+
 Restart server and boom (it should work):
 ```sh
 plugin_print
@@ -85,8 +91,6 @@ Unable to load plugin "../cstrike/addons/sample_plugin"
 Unable to load plugin "addons/metamod/bin/linux64/server"
 ```
 It means you skipped a step probably.
-
-*Dont ask me what's half of the things doing. Why are there "sniper", "scout" or "soldier" different SDK builds? IDK, play around \s*
 
 ### Conclusion
 
