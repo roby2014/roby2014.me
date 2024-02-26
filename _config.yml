@@ -1,8 +1,7 @@
 # Site settings
 title: roby2014.me # site title
 description: >- # site description
-  roby's experiments in topics such as reverse engineering, 
-  compilers, emulators, FPGAs, CTFs and others 😝
+  documenting my techy experiments in topics i find interesting
 lang: en-US # default lang
 timezone: Portugal/Lisbon # set your timezone
 image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
@@ -13,13 +12,12 @@ mode: dark # default theme "dark" | "light"
 author:
   name: roby # author name
   bio: >- # tell to the world
-    My cool experiments in topics such as reverse engineering, 
-    compilers, emulators, FPGAs, CTFs and others.
+    documenting my techy experiments in topics i find interesting
   username: roby2014 # general username
   github: roby2014 # github username
   twitter: twitter_username # twitter username
   facebook: facebook_username # facebook username
-  email: robyawyx@gmail.com # email adress
+  email: roby2x14@gmail.com # email adress
   avatar: /assets/img/avatar2.jpg # change with your own avatar
 
 # URL settings

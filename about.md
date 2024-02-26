@@ -6,12 +6,13 @@ excerpt: About me
 comments: false
 ---
 
-Hi! I'm Roberto, a 19 years old student doing a BSc in Computer Science and Engineering at [Instituto Superior de Engenharia de Lisboa (ISEL)](https://www.isel.pt/).
+computer science & engineering bsc; 20 years old; from portugal
 
-This blog is mainly used to document my projects/experiments on the different topics I find interesting.
-At the moment, my main interests are: **reverse engineering**, **compilers**, **emulators**, **FPGAs** and **CTFs**.
+this blog is mainly used to document my projects/experiments on the different topics I find interesting, such as **reverse engineering**, **compilers**, **emulators**, **FPGAs**, **CTFs** and others..
 
-Check [my github](https://github.com/roby2014) for some of my public projects.
+i'm also interested in all sort of art, such as music, literature, drawing...
+
+check [my github](https://github.com/roby2014) for some of my public projects.
 
 **contact me**
 
