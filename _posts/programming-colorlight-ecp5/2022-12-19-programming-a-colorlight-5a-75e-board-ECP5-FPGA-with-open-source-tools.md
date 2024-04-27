@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Programming a Colorlight 5A-75E board (ECP5 FPGA) with FT232RL using open source tools.
+title: Hacking a Colorlight 5A-75E board (ECP5 FPGA) with FT232RL and open-source FPGA tools.
 date: 2022-12-19 01:00 +0700
 modified: 2022-01-12 01:00 +0700
 description: Programming a Colorlight 5A-75E board (ECP5 FPGA) with open source tools using FT232RL as a JTAG programmer.
@@ -44,9 +44,7 @@ This board is known as a "Receiver Card" and it is mostly used as a controller f
 
 You can read more about the board [here](https://github.com/q3k/chubby75/tree/master/5a-75e).
 
-So since it has a FPGA and JTAG pins, it can programmable however we want using a JTAG programmer (which is the main topic of this blogpost)!
-
-*This is not a tutorial, but more like a blogpost documenting how I did it.*
+So since it has a FPGA and JTAG pins, it can be programmable however we want using a JTAG programmer.
 
 ### Plan
 
@@ -107,13 +105,14 @@ This was the result:
 
 So now that the hardware setup is done, let's go to the software part. The tools described above are needed (in the [plan](#plan) section). 
 
-The cool thing about this board is that we can program it using a fully open source toolchain.! 
+The cool thing about this board is that we can program it using a fully open source toolchain! 
 
-In my case I'm using Arch Linux, so luckily I could find some useful packages:
+In my case I'm using Arch Linux (haha), so luckily I could find some useful packages:
 ```sh
 > yay -S yosys-nightly nextpnr-ecp5-nightly prjtrellis-nightly 
 > pacman -S openfpgaloader
 ```
+
 These two commands installed all the tools I needed, in your case, you might need to install them differently.
 
 ### Uploading bitstream to ECP5 FPGA
@@ -124,7 +123,7 @@ You can find a simple example project [on my repository](https://github.com/roby
 
 The project has a `Makefile` that runs all the needed commands, and programs your board.
 
-```
+```sh
 ❯ git clone https://github.com/roby2014/ecp5-ft232rl-example
 ❯ cd ecp5-ft232rl-example/verilog_example
 ❯ make
@@ -143,7 +142,11 @@ Disable configuration: DONE
 
 And.... it works :) You should be able to control your LED via INPUT button.
 
-*In case you are curious, [this](https://github.com/roby2014/ecp5-ft232rl-example#information) is what the `Makefile` does "under the hood".*
+When running `make`, this is what happens "under the hood":
+- `yosys` synthetizes the Verilog/Vhdl files, generating a json file with the RTL information.
+- `nextpnr-ecp5` transforms synthetized RTL code and pin mapping (lpf file) into a FPGA config file.
+- `ecppack` generates bitstream from the configuration file.
+- `openFPGALoader` uploads the bitstream into the FPGA via JTAG.
 
 
 ### References
