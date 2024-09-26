@@ -18,9 +18,9 @@ image: /riscv-rust-colorlight-ecp5/embedded-ferris-soldering.png
 ---
 
 - [Introduction](#introduction)
-- [Building the RISC-V SoC](#Building-the-RISC-V-SoC)
+- [Building the RISC-V SoC](#building-the-risc-v-SoC)
 - [Flashing FPGA](#flashing-fpga)
-- [Peripheral Access Crate (PAC)](#Peripheral-Access-Crate-PAC)
+- [Peripheral Access Crate (PAC)](#peripheral-access-crate-pac)
 - [Firmware](#firmware)
 - [Conclusion](#conclusion)
 
@@ -28,7 +28,7 @@ image: /riscv-rust-colorlight-ecp5/embedded-ferris-soldering.png
 
 ### Introduction
 
-In my previous posts, I demonstrated how to [flash a custom bitstream](https://roby2014-me.vercel.app/programming-a-colorlight-5a-75e-board-ECP5-FPGA-with-open-source-tools/) onto the **Colorlight 5A-75E** (ECP5 FPGA) board using **open-source tools** and the **FT232RL** chip as a **JTAG programmer**. We also explored [integrating a RISC-V SoC](https://roby2014-me.vercel.app/risc-v-colorlight-5a-75e/) (built with [LiteX](https://github.com/enjoy-digital/litex)) with custom C firmware.
+In my previous posts, I demonstrated how to [flash a custom bitstream](https://roby2014-me.vercel.app/programming-a-colorlight-5a-75e-board-ECP5-FPGA-with-open-source-tools/) onto the **Colorlight 5A-75E** (ECP5 FPGA) board using **open-source tools** and the **FT232RL** chip as a **JTAG programmer**. We also explored [integrating a RISC-V SoC](https://roby2014-me.vercel.app/risc-v-colorlight-5a-75e/) (built with [LiteX](https://github.com/enjoy-digital/litex)) with custom [C firmware](https://github.com/roby2014/risc-v-colorlight-5a-75e/blob/master/firmware/main.c).
 
 In this post, we’ll take things a step further and dive deeper. This time, we’ll be building and running **Rust 🦀 firmware** on the RISC-V SoC, continuing the adventure into the world of **FPGA hacking** and **open-source tools**.
 
@@ -40,9 +40,9 @@ The heart of this project is turning the Colorlight 5A-75E board into a simple R
 
 With a simple [script](https://github.com/roby2014/colorlight-riscv-rs/blob/main/soc.py), you can build a full RISC-V SoC ready to flash your FPGA and run custom firmware on it.
 
-*(For more in-depth information, bcheck out LiteX documentation.)*
+*(For more in-depth information, check out LiteX documentation.)*
 
-So for building:
+So, for building SoC bitstream and dependencies for later:
 ```bash
 python3 soc.py --build --cpu-type vexriscv --csr-svd "./litex-pac/5a-75e_6.0.svd"
 ```
@@ -58,8 +58,9 @@ python3 soc.py --load --no-compile-software
 
 ### Peripheral Access Crate (PAC)
 
-When building the SoC, LiteX will generate the `svd` file (representation of the hardware peripherals and their registers). With this, `svd2rust` can be used to create the PAC in order to access and manipulate the system with Rust bindings. The PAC will use its `build.rs` to do this automatically. A pre-generated PAC can be found in the [repository litex-pac folder](https://github.com/roby2014/colorlight-riscv-rs/tree/main/litex-pac).
+When building the SoC, LiteX will generate the `svd` file (representation of the hardware peripherals and their registers). With this, [`svd2rust`](https://github.com/rust-embedded/svd2rust) can be used to create the PAC in order to access and manipulate the system with Rust bindings. The PAC will use its `build.rs` to do this automatically. A pre-generated PAC can be found in the [repository `litex-pac` folder](https://github.com/roby2014/colorlight-riscv-rs/tree/main/litex-pac).
 
+Simple example of how the `.svd` file looks:
 ```svd
     <peripherals>
         <peripheral>
@@ -132,7 +133,7 @@ After that, we can create the following files:
   }
   ```
 
-Below is a simple example of Rust firmware for the RISC-V SoC, which continuously sends "hello" through the UART (serial) interface.
+On the dependencies side, we need a RISC-V runtime, panic halt and the generated PAC Rust bindings.
 
 ```toml
 [dependencies]
@@ -141,7 +142,7 @@ panic-halt = "0.2.0"
 litex-pac = { path = "../litex-pac" } # use pac
 ```
 
-On the dependencies side, we need a RISC-V runtime, panic halt and the generated PAC Rust bindings.
+Below is a simple example of Rust firmware for the RISC-V SoC, which continuously sends "hello" through the UART (serial) interface.
 
 ```rust
 #![no_std]
@@ -189,6 +190,7 @@ fn main() -> ! {
 
 There are already public Rust crates that "take care" of these interface wrappers, such as [rust-litex-hal](https://github.com/pepijndevos/rust-litex-hal).
 
+Lets build the firmware:
 ```sh
 cd firmware
 BUILD_DIR=../build/colorlight_5a_75e cargo build --release
@@ -201,7 +203,7 @@ My repository also contains simple cargo utilities to flash the FPGA, i.e  when 
 ```bash
 $ DEVICE=/dev/ttyUSB0 cargo run
 ```
-Make sure to adjust `DEVICE` to your needs, since firmware `.bin` is uploaded via UART aswell.
+*Make sure to adjust `DEVICE` to your needs, since firmware `.bin` is uploaded via UART aswell.*
 
 Under the hood, this will run:
 ```bash
@@ -262,9 +264,10 @@ hello
 
 With this setup, you now have a fully integrated RISC-V system on a $15 FPGA board, all powered by open-source tools and running "safe" Rust firmware!
 
-Next up (once I'll have some time and motivation), I'll be diving into more advanced topics, probably something like exploring networking capabilities and experimenting with protocols like [**Zenoh**](https://github.com/eclipse-zenoh/zenoh), or messing with the hardware to turn output ports as inputs and start implementing something bigger.
+Next up (once I'll have some time and motivation), I'll be diving into more other topics, probably something like exploring networking capabilities or messing with the hardware to turn output ports as inputs and start implementing something bigger with this FPGA :)
 
 ### References
+- [roby2014/colorlight-riscv-rs](https://github.com/roby2014/colorlight-riscv-rs)
 - [Hacking a Colorlight 5A-75E board (ECP5 FPGA) with FT232RL and open-source FPGA tools.](https://roby2014-me.vercel.app/programming-a-colorlight-5a-75e-board-ECP5-FPGA-with-open-source-tools/)
 - [Implementing a RISC-V soft core into a 15$ FPGA board.](https://roby2014-me.vercel.app/risc-v-colorlight-5a-75e/)
 - [roby2014/risc-v-colorlight-5a-75e](https://github.com/roby2014/risc-v-colorlight-5a-75e)
