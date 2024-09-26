@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hacking a Colorlight 5A-75E board (ECP5 FPGA) with FT232RL and open-source FPGA tools.
+title: Hacking Colorlight 5A-75E - Flashing ECP5 FPGA with FT232RL and open-source FPGA tools.
 date: 2022-12-19 01:00 +0700
 modified: 2022-01-12 01:00 +0700
 description: Programming a Colorlight 5A-75E board (ECP5 FPGA) with open source tools using FT232RL as a JTAG programmer.

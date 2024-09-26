@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Implementing a RISC-V soft core into a 15$ FPGA board.
+title: Hacking Colorlight 5A-75E - Implementing a RISC-V soft core into a 15$ FPGA board.
 date: 2023-01-20 01:00 +0700
 modified: 2023-01-20 01:00 +0700
-description: Demonstration on using a soft core (VexRiscv) built with LiTex in a Colorlight 5A-75E board (Lattice ECP5).
+description: Demonstration on using a soft core (VexRiscv) built with LiTex in a Colorlight 5A-75E board (Lattice ECP5 FPGA).
 tag:
   - fpga
   - ecp5
